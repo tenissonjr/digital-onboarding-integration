@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DigitalOnboardingApplication<digital-onboarding-integration>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.onboarding.DigitalOnboardingApplication",
+            "projectName": "digital-onboarding-integration",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

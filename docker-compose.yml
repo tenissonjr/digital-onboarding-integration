@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - ONBOARDING_API_URL=http://mock-api:9090
+      - ONBOARDING_API_USERNAME=admin
+      - ONBOARDING_API_PASSWORD=password
+      - MAX_RETRY_ATTEMPTS=3
+      - RATE_LIMIT=10
+      - RATE_LIMIT_REFRESH_PERIOD=1
+      - NOTIFICATION_EMAILS=admin@example.com,support@example.com
+    depends_on:
+      - db
+    networks:
+      - onboarding-network
+    restart: unless-stopped
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=onboardingdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - onboarding-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mock-api:
+    image: mock-api:latest
+    build:
+      context: ./mock-api
+    ports:
+      - "9090:9090"
+    networks:
+      - onboarding-network
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v2.44.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+    networks:
+      - onboarding-network
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:10.0.3
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - onboarding-network
+    restart: unless-stopped
+
+networks:
+  onboarding-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  prometheus-data:
+  grafana-data:
+
+# Created by tenissonjr on 2025-04-14 00:55:34
