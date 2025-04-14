@@ -59,16 +59,16 @@ public class OnboardingProcessorService {
             }
             
             // Buscar os dados do sistema de onboarding
-            //OnboardingDataDto dataDto = onboardingApiClient.fetchOnboardingData(hash);
+            OnboardingDataDto dataDto = onboardingApiClient.fetchOnboardingData(hash);
             
             // Registrar uma tentativa bem-sucedida
-            //registerSuccessfulAttempt(hash, attempt);
+            registerSuccessfulAttempt(hash, attempt);
             
             // Criar entidade com os dados recebidos
-            //OnboardingData onboardingData = createOnboardingDataEntity(dataDto);
+            OnboardingData onboardingData = createOnboardingDataEntity(hash,dataDto);
             
             // Persistir a entidade
-            //onboardingDataRepository.save(onboardingData);
+            onboardingDataRepository.save(onboardingData);
             
             // Process validation asynchronously
             processValidation(hash);
@@ -117,9 +117,9 @@ public class OnboardingProcessorService {
         }
     }
     
-    private OnboardingData createOnboardingDataEntity(OnboardingDataDto dataDto) {
+    private OnboardingData createOnboardingDataEntity(String hash, OnboardingDataDto dataDto) {
         return OnboardingData.builder()
-                .hash(dataDto.getHash())
+                .hash(hash)
                 .cpf(dataDto.getCpf())
                 .nome(dataDto.getNome())
                 .nomeSocial(dataDto.getNomeSocial())
