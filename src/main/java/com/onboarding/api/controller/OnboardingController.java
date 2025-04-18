@@ -27,7 +27,7 @@ import com.onboarding.domain.entity.OnboardingData;
 import com.onboarding.domain.entity.ValidationError;
 import com.onboarding.domain.repository.OnboardingDataRepository;
 import com.onboarding.domain.repository.ValidationErrorRepository;
-import com.onboarding.service.OnboardingProcessorService;
+import com.onboarding.service.ReceiveHashService;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -51,7 +51,7 @@ public class OnboardingController {
 
     private final OnboardingDataRepository onboardingDataRepository;
     private final ValidationErrorRepository validationErrorRepository;
-    private final OnboardingProcessorService onboardingProcessorService;
+    private final ReceiveHashService onboardingProcessorService;
     private final MeterRegistry meterRegistry;
     
     private Counter notificationCounter;

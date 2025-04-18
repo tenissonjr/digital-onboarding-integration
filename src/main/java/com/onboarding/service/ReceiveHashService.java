@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class OnboardingProcessorService {
+public class ReceiveHashService {
 
     private final OnboardingApiClient onboardingApiClient;
     private final OnboardingDataRepository onboardingDataRepository;

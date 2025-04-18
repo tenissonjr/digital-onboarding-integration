@@ -1,6 +1,6 @@
 package com.onboarding.service.development;
 
-import com.onboarding.service.OnboardingProcessorService;
+import com.onboarding.service.ReceiveHashService;
 import com.onboarding.service.ValidationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Profile("dev")
 public class DirectCallService {
 
-    private final OnboardingProcessorService onboardingProcessorService;
+    private final ReceiveHashService onboardingProcessorService;
     private final ValidationService validationService;
 
     @Async

@@ -38,7 +38,7 @@ class OnboardingProcessorServiceTest {
     private NotificationService notificationService;
 
     @InjectMocks
-    private OnboardingProcessorService onboardingProcessorService;
+    private ReceiveHashService onboardingProcessorService;
 
     @BeforeEach
     void setUp() {

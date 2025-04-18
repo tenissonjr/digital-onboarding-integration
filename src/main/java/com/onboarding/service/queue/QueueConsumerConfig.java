@@ -1,6 +1,6 @@
 package com.onboarding.service.queue;
 
-import com.onboarding.service.OnboardingProcessorService;
+import com.onboarding.service.ReceiveHashService;
 import com.onboarding.service.ValidationService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class QueueConsumerConfig {
     
     private final InMemoryQueueService queueService;
-    private final OnboardingProcessorService onboardingProcessorService;
+    private final ReceiveHashService onboardingProcessorService;
     private final ValidationService validationService;
     
     @PostConstruct

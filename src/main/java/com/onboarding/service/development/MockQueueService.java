@@ -1,6 +1,6 @@
 package com.onboarding.service.development;
 
-import com.onboarding.service.OnboardingProcessorService;
+import com.onboarding.service.ReceiveHashService;
 import com.onboarding.service.ValidationService;
 import com.onboarding.service.queue.InMemoryQueueService;
 import com.onboarding.service.queue.QueueConstants;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class MockQueueService {
 
     private final InMemoryQueueService queueService;
-    private final OnboardingProcessorService onboardingProcessorService;
+    private final ReceiveHashService onboardingProcessorService;
     private final ValidationService validationService;
 
     // Method to send a test hash directly to the processing service
